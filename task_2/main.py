@@ -9,7 +9,7 @@ DB_NAME = "test_db"
 COLLECTION_NAME = "cats"
 
 def clear_input(s: str) -> str:
-    return re.sub(r'[\ud800-\udfff]', '', s)
+    return re.sub(r'[\ud800-\udfff]', '', s) # NOTE: need this to work correctly with Ukrainian input
 
 def show_all(cats_collection):
     print("=== Усі записи в колекції ===")
