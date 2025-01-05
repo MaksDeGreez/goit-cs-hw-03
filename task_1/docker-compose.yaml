@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14-alpine
+    container_name: hw03_db
+    environment:
+      - POSTGRES_DB=hw03_db
+      - POSTGRES_USER=hw03_user
+      - POSTGRES_PASSWORD=hw03_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  runner:
+    build: .
+    container_name: hw03_runner
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://hw03_user:hw03_pass@db:5432/hw03_db
+
+volumes:
+  postgres_data:
