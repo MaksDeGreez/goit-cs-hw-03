@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: hw03_mongo_db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpass
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  runner:
+    build: .
+    container_name: hw03_mongo_runner
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://root:rootpass@mongo:27017/hw03_db?authSource=admin
+
+volumes:
+  mongo_data:
